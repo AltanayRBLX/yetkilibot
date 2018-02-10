@@ -215,12 +215,28 @@ bot.on("message", function(message) {
             });
             break
         case "avatar":
-            var embed = new Discord.RichEmbed()
+			if (!args[1] == "") {
+				var member = message.mentions.members.first();
+				if (member) {
+					var embed = new Discord.RichEmbed()
+					.setAuthor(member.user.username, member.user.avatarURL)
+                
+					.setImage(member.user.avatarURL)
+                
+					message.channel.send(embed)
+				}
+				else {
+					message.channel.send("**Kullanıcı bulunamadı!**")
+				}
+			}
+			else {
+				var embed = new Discord.RichEmbed()
                 .setAuthor(message.author.username, message.author.avatarURL)
                 
                 .setImage(message.author.avatarURL)
                 
-            message.channel.send(embed)
+				message.channel.send(embed)
+			}
             break
         case "hataverdirme":
             throw new Error("İsteğe bağlı hata verdirildi!")
@@ -327,6 +343,25 @@ bot.on("message", function(message) {
                 .setImage(message.guild.iconURL)
                 
             message.channel.send(embed);
+            break
+		case "temizle":
+            if (!args[1] == "") {
+                if (message.member.roles.some(r=>["Manage Messages"].includes(r.name))) {
+                    var temizle = parseInt(args[1])
+                    if (temizle > 100)
+                    return message.channel.send("**Mesaj silme sınırı 100'dür!**");
+                    if (temizle < 2)
+                    return message.channel.send("**Minimum 2 mesaj silinebilir!**");
+                    message.channel.bulkDelete(temizle)
+                    message.channel.send(":white_check_mark: **" + temizle + "**");
+                }
+                else {
+                    message.delete()
+                }
+            }
+            else {
+                message.channel.send("**Komut parametreleri eksik veya hatalı!**");
+            }
             break
 		case "ping":
 			var ping = message.channel.send("Ping!").then((pinglatency) => {
@@ -506,6 +541,9 @@ bot.on("message", function(message) {
     if (message.content.toLowerCase().indexOf("küfür") > -1 ||
     message.content.toLowerCase().indexOf("siktir") > -1 ||
     message.content.toLowerCase().indexOf("sikerim") > -1 ||
+	message.content.toLowerCase().indexOf("sıkerım") > -1 ||
+	message.content.toLowerCase().indexOf("sikerım") > -1 ||
+	message.content.toLowerCase().indexOf("sıkerim") > -1 ||
     message.content.toLowerCase().indexOf("amına") > -1 ||
     message.content.toLowerCase().indexOf("amina") > -1 ||
     message.content.toLowerCase().indexOf("amcık") > -1 ||
@@ -513,6 +551,8 @@ bot.on("message", function(message) {
     message.content.toLowerCase().indexOf("ananı") > -1 ||
     message.content.toLowerCase().indexOf("ecdadını") > -1 ||
     message.content.toLowerCase().indexOf("sikiyim") > -1 ||
+	message.content.toLowerCase().indexOf("sıkıyim") > -1 ||
+	message.content.toLowerCase().indexOf("sikıyım") > -1 ||
     message.content.toLowerCase().indexOf("orospu") > -1 ||
     message.content.toLowerCase().indexOf("orospu çocuğu") > -1 ||
     message.content.toLowerCase().indexOf("yarrak") > -1 ||
