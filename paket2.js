@@ -8,6 +8,10 @@ require("dotenv").config()
 
 const Prefix = process.env.prefix
 
+const SerbestKullanicilar = [
+	"372025608055554048",
+	"293006152692662273"
+]
 var bot = new Discord.Client();
 
 const CSGOResimleri = [
