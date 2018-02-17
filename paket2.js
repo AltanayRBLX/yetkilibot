@@ -475,6 +475,7 @@ bot.on("message", function(message) {
             break
 	case "kapat":
 	    if (message.author.id == 273453450019471361 || message.author.id == 293006152692662273 || message.author.id == 372025608055554048) {
+		 message.channel.send("Yeniden başlatılıyor")
 		 process.exit(0)   
 	    }
 	    break
